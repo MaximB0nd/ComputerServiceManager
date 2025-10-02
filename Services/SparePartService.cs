@@ -27,12 +27,13 @@ public class SparePartService
     {
         _connection.Open();
         var command = _connection.CreateCommand();
-        command.CommandText = "CREATE TABLE IF NOT EXISTS SpaceParts( $id, $name, $price, $functions $check)";
-        command.Parameters.AddWithValue("$id", "id STRING PRIMARY KEY");
-        command.Parameters.AddWithValue("$name", "name STRING NOT NULL");
-        command.Parameters.AddWithValue("$price", "price FLOAT NOT NULL");
-        command.Parameters.AddWithValue("$functions", "functions STRING NOT NULL");
-        command.Parameters.AddWithValue("$check", "check price>0");
+        command.CommandText = @"
+        CREATE TABLE IF NOT EXISTS SpaceParts(
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            price REAL NOT NULL CHECK(price > 0),
+            functions TEXT NOT NULL
+        )";
         command.ExecuteNonQuery();
     }
 
@@ -40,19 +41,21 @@ public class SparePartService
     {
         var command = _connection.CreateCommand();
         command.CommandText = "INSERT INTO SpaceParts values ($id, $name, $price, $functions)";
-        command.Parameters.AddWithValue("$id", sparePart.id);
-        command.Parameters.AddWithValue("$name", sparePart.name);
-        command.Parameters.AddWithValue("$price", sparePart.price);
-        command.Parameters.AddWithValue("$functions", sparePart.function);
+        command.Parameters.AddWithValue("$id", sparePart.Id);
+        command.Parameters.AddWithValue("$name", sparePart.Name);
+        command.Parameters.AddWithValue("$price", sparePart.Price);
+        command.Parameters.AddWithValue("$functions", sparePart.Functions);
         command.ExecuteNonQuery();
+        ReadSpaceParts();
     }
 
     public void DeleteSparePart(SparePartModel sparePart)
     {
         var command = _connection.CreateCommand();
         command.CommandText = "DELETE FROM SpaceParts WHERE id = $id";
-        command.Parameters.AddWithValue("$id", sparePart.id);
+        command.Parameters.AddWithValue("$id", sparePart.Id);
         command.ExecuteNonQuery();
+        ReadSpaceParts();
     }
 
     public ObservableCollection<SparePartModel> ReadSpaceParts()

@@ -16,8 +16,8 @@
     </Design.DataContext>
     
     <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20" Spacing="10">
+        <StackPanel Orientation="Horizontal" Margin="20" Spacing="100">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
                 <TextBlock Text="Select Table">Tables</TextBlock>
                 <RadioButton GroupName="Tables" Content="Ремонтируемые модели" Click="OnRadioButtonClick" Tag="1"/>
                 <RadioButton GroupName="Tables" Content="Запчасти" Click="OnRadioButtonClick" Tag="2"/>
@@ -26,13 +26,26 @@
             </StackPanel>
             
             
-            <DataGrid IsVisible="{Binding }" AutoGenerateColumns="True">
-                
+            <DataGrid IsVisible="{Binding IsSelectedFirstPage}" 
+                      ItemsSource="{Binding }" 
+                      AutoGenerateColumns="True" 
+                      IsReadOnly="True" 
+                      GridLinesVisibility="All"
+                      HeadersVisibility="All" 
+                      BorderBrush="Gray" 
+                      BorderThickness="1" >
             </DataGrid>
-            
-           
-            <DataGrid IsVisible="{Binding IsSelectedSecondPage}" AutoGenerateColumns="True">
                 
+            <DataGrid IsVisible="{Binding IsSelectedSecondPage}" 
+                      SelectedItem="{Binding SelectedSparePartModel}"
+                      ItemsSource="{Binding SparePartModels}" 
+                      AutoGenerateColumns="True" 
+                      IsReadOnly="True" 
+                      GridLinesVisibility="All"
+                      HeadersVisibility="All" 
+                      BorderBrush="Gray" 
+                      BorderThickness="1" 
+                      ColumnWidth="150">
             </DataGrid>
             
             
@@ -41,14 +54,43 @@
             </DataGrid>
         </StackPanel>
         
+        <TextBlock Text="{Binding SparePartError}" Foreground="Red"/>
+        
         
         <Grid IsVisible="{Binding IsSelectedFirstPage}"> 
             
         </Grid>
         
         
-        <Grid IsVisible="{Binding IsSelectedSecondPage}"> 
-            
+        <Grid IsVisible="{Binding IsSelectedSecondPage}" ColumnDefinitions="*, *, *" RowDefinitions="*, *, *" ColumnSpacing="20" Margin="20"> 
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+                <TextBlock Text="Id" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding SparePartId}" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Name" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding SparePartName}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+                <TextBlock Text="Price" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding SparePartPrice}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Functions" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding SparePartFunctions}" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical">
+                <TextBlock/>
+                <Button Click="OnAddSparePartClick">
+                    <TextBlock Text="Add SparePart" />
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+                <TextBlock/>
+                <Button Click="OnRemoveSparePartClick">
+                    <TextBlock Text="Delete SparePart" />
+                </Button>
+            </StackPanel>
         </Grid>
         
         

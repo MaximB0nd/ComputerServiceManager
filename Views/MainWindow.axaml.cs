@@ -21,8 +21,17 @@ public partial class MainWindow : Window
         if (sender is not RadioButton radioButton) return;
         ViewModel!.ChangePage(Convert.ToInt32(radioButton.Tag));
     }
-    
-    
-    
-    
+
+
+    private void OnAddSparePartClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null) return;
+        ViewModel.AddSparePart();
+    }
+
+    private void OnRemoveSparePartClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null) return;
+        ViewModel.RemoveSparePart();
+    }
 }

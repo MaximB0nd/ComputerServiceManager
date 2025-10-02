@@ -1,17 +1,19 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace ComputerService.Models;
 
-public struct SparePartModel
+public class SparePartModel: ObservableObject
 {
-    public string id; 
-    public string name;
-    public string function;
-    public string price;
+    public string Id {get; set;}
+    public string Name {get; set;}
+    public string Functions {get; set;}
+    public string Price {get; set;}
 
     public SparePartModel(string id, string name, string function, string price)
     {
-        this.id = id;
-        this.name = name;
-        this.function = function;
-        this.price = price;
+        this.Id = id;
+        this.Name = name;
+        this.Functions = function;
+        this.Price = price;
     }
 }
