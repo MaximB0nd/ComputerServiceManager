@@ -29,7 +29,7 @@ public class SparePartService
         var command = _connection.CreateCommand();
         command.CommandText = @"
         CREATE TABLE IF NOT EXISTS SpaceParts(
-            id TEXT PRIMARY KEY,
+            id TEXT PRIMARY KEY CHECK (id != ''),
             name TEXT NOT NULL,
             price REAL NOT NULL CHECK(price > 0),
             functions TEXT NOT NULL
@@ -43,10 +43,9 @@ public class SparePartService
         command.CommandText = "INSERT INTO SpaceParts values ($id, $name, $price, $functions)";
         command.Parameters.AddWithValue("$id", sparePart.Id);
         command.Parameters.AddWithValue("$name", sparePart.Name);
-        command.Parameters.AddWithValue("$price", sparePart.Price);
+        command.Parameters.AddWithValue("$price", Convert.ToDouble(sparePart.Price));
         command.Parameters.AddWithValue("$functions", sparePart.Functions);
         command.ExecuteNonQuery();
-        ReadSpaceParts();
     }
 
     public void DeleteSparePart(SparePartModel sparePart)
@@ -55,7 +54,6 @@ public class SparePartService
         command.CommandText = "DELETE FROM SpaceParts WHERE id = $id";
         command.Parameters.AddWithValue("$id", sparePart.Id);
         command.ExecuteNonQuery();
-        ReadSpaceParts();
     }
 
     public ObservableCollection<SparePartModel> ReadSpaceParts()

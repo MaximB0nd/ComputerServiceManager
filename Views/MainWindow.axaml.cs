@@ -34,4 +34,16 @@ public partial class MainWindow : Window
         if (ViewModel == null) return;
         ViewModel.RemoveSparePart();
     }
+
+    private void OnAddRepairModelClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null) return;
+        ViewModel.AddRepairModel();
+    }
+
+    private void OnDeleteRepairModelClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null) return;
+        ViewModel.RemoveRepairModel();
+    }
 }

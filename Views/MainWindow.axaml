@@ -15,19 +15,19 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
     
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical" Margin="20">
         <StackPanel Orientation="Horizontal" Margin="20" Spacing="100">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
-                <TextBlock Text="Select Table">Tables</TextBlock>
-                <RadioButton GroupName="Tables" Content="Ремонтируемые модели" Click="OnRadioButtonClick" Tag="1"/>
-                <RadioButton GroupName="Tables" Content="Запчасти" Click="OnRadioButtonClick" Tag="2"/>
-                <RadioButton GroupName="Tables" Content="Виды неиправностей" Click="OnRadioButtonClick" Tag="3"/>
-                <RadioButton GroupName="Tables" Content="Запчасти для неисправностей" Click="OnRadioButtonClick" Tag="4"/>
+                <TextBlock Text="Select ">Table</TextBlock>
+                <RadioButton GroupName="Table" Content="Repair models" Click="OnRadioButtonClick" Tag="1" IsChecked="True"/>
+                <RadioButton GroupName="Table" Content="Spare parts" Click="OnRadioButtonClick" Tag="2"/>
+                <RadioButton GroupName="Table" Content="Виды неиправностей" Click="OnRadioButtonClick" Tag="3"/>
+                <RadioButton GroupName="Table" Content="Запчасти для неисправностей" Click="OnRadioButtonClick" Tag="4"/>
             </StackPanel>
             
             
             <DataGrid IsVisible="{Binding IsSelectedFirstPage}" 
-                      ItemsSource="{Binding }" 
+                      ItemsSource="{Binding RepairModels}" 
                       AutoGenerateColumns="True" 
                       IsReadOnly="True" 
                       GridLinesVisibility="All"
@@ -44,8 +44,7 @@
                       GridLinesVisibility="All"
                       HeadersVisibility="All" 
                       BorderBrush="Gray" 
-                      BorderThickness="1" 
-                      ColumnWidth="150">
+                      BorderThickness="1" >
             </DataGrid>
             
             
@@ -55,14 +54,49 @@
         </StackPanel>
         
         <TextBlock Text="{Binding SparePartError}" Foreground="Red"/>
+        <TextBlock Text="{Binding RepairModelError}" Foreground="Red"/>
         
-        
-        <Grid IsVisible="{Binding IsSelectedFirstPage}"> 
-            
+        <Grid IsVisible="{Binding IsSelectedFirstPage}"
+              ColumnDefinitions="*, *, *, *" RowDefinitions="*, *" ColumnSpacing="20" RowSpacing="20" Margin="20">
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+                <TextBlock Text="Id" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding RepairModelId}" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Name" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding RepairModelName}" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical">
+                <TextBlock Text="Type" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding RepairModelType}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+                <TextBlock Text="Producer" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding RepairModelProducer}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Properties" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding RepairModelProperties}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+                <TextBlock Text="Features" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding RepairModelFeatures}" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Vertical">
+                <TextBlock Text=""/>
+                <Button Click="OnAddRepairModelClick">
+                    <TextBlock Text="Add RepairModel" />
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical">
+                <TextBlock Text=""/>
+                <Button Click="OnDeleteRepairModelClick">
+                    <TextBlock Text="Delete RepairModel" />
+                </Button>
+            </StackPanel>
         </Grid>
         
-        
-        <Grid IsVisible="{Binding IsSelectedSecondPage}" ColumnDefinitions="*, *, *" RowDefinitions="*, *, *" ColumnSpacing="20" Margin="20"> 
+        <Grid IsVisible="{Binding IsSelectedSecondPage}" ColumnDefinitions="*, *, *" RowDefinitions="*, *, *" ColumnSpacing="20" RowSpacing="20" Margin="20"> 
             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
                 <TextBlock Text="Id" Margin="0 0 0 4"/>
                 <TextBox Text="{Binding SparePartId}" />
@@ -80,24 +114,22 @@
                 <TextBox Text="{Binding SparePartFunctions}" />
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical">
-                <TextBlock/>
+                <TextBlock Text=""/>
                 <Button Click="OnAddSparePartClick">
                     <TextBlock Text="Add SparePart" />
                 </Button>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
-                <TextBlock/>
+                <TextBlock Text=""/>
                 <Button Click="OnRemoveSparePartClick">
                     <TextBlock Text="Delete SparePart" />
                 </Button>
             </StackPanel>
         </Grid>
         
-        
         <Grid IsVisible="{Binding IsSelectedThirdPage}"> 
             
         </Grid>
-        
         
         <Grid IsVisible="{Binding IsSelectedFourthPage}"> 
             
