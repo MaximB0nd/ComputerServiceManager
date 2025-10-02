@@ -20,10 +20,11 @@
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20" Spacing="10">
                 <TextBlock Text="Select Table">Tables</TextBlock>
                 <RadioButton GroupName="Tables" Content="Ремонтируемые модели" Click="OnRadioButtonClick" Tag="1"/>
-                <RadioButton GroupName="Tables" Content="Виды неиправностей" Click="OnRadioButtonClick" Tag="2"/>
-                <RadioButton GroupName="Tables" Content="Запчасти" Click="OnRadioButtonClick" Tag="3"/>
+                <RadioButton GroupName="Tables" Content="Запчасти" Click="OnRadioButtonClick" Tag="2"/>
+                <RadioButton GroupName="Tables" Content="Виды неиправностей" Click="OnRadioButtonClick" Tag="3"/>
                 <RadioButton GroupName="Tables" Content="Запчасти для неисправностей" Click="OnRadioButtonClick" Tag="4"/>
             </StackPanel>
+            
             
             <DataGrid IsVisible="{Binding }" AutoGenerateColumns="True">
                 
@@ -41,16 +42,25 @@
         </StackPanel>
         
         
-        <TextBlock Text="Value1" IsVisible="{Binding IsSelectedFirstPage}"/>    
-        <TextBlock Text="Value2" IsVisible="{Binding IsSelectedSecondPage}"/>
-        <TextBlock Text="Value3" IsVisible="{Binding IsSelectedThirdPage}"/>
-        <TextBlock Text="Value4" IsVisible="{Binding IsSelectedFourthPage}"/>
+        <Grid IsVisible="{Binding IsSelectedFirstPage}"> 
+            
+        </Grid>
         
         
+        <Grid IsVisible="{Binding IsSelectedSecondPage}"> 
+            
+        </Grid>
         
+        
+        <Grid IsVisible="{Binding IsSelectedThirdPage}"> 
+            
+        </Grid>
+        
+        
+        <Grid IsVisible="{Binding IsSelectedFourthPage}"> 
+            
+        </Grid>
         
         
     </StackPanel>
-    
-    
 </Window>
