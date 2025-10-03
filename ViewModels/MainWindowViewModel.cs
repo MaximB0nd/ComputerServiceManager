@@ -51,12 +51,23 @@ public partial class MainWindowViewModel : ViewModelBase
         RepairModelProperties = ""; 
         RepairModelFeatures = "";
         RepairModelError = "";
+        
+        // -- Fault type
+        
+        SelectedFaultTypeModel = null;
+        FaultTypeError = "";
+        FaultTypeId = "";
+        FaultTypeModelId = "";
+        FaultTypeDescription = "";
+        FaultTypeSymptoms = "";
+        FaultTypeRepairMethods = "";
     }
     
     private void UpdateAll()
     {
         SparePartModels = _sparePartService.ReadSpaceParts();
         RepairModels = _repairModelService.ReadRepairModels();
+        FaultTypeModels = _faultTypeService.ReadFaultTypes();
     }
 
     // --- SparePart 
@@ -105,6 +116,7 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     // --- Repair Model
+    
     private RepairModelService _repairModelService = RepairModelService.Shared;
     [ObservableProperty] private RepairModel? _selectedRepairModel = null;
     [ObservableProperty] private ObservableCollection<RepairModel> _repairModels = new();
@@ -152,12 +164,56 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
     
+    // --- Fault types
+    
+    private FaultTypeService _faultTypeService = FaultTypeService.Shared;
+    [ObservableProperty] private ObservableCollection<FaultTypeModel> _faultTypeModels = new();
+    [ObservableProperty] private FaultTypeModel? _selectedFaultTypeModel = null;
+    [ObservableProperty] private string _faultTypeError = "";
+    [ObservableProperty] private string _faultTypeId = "";
+    [ObservableProperty] private string _faultTypeModelId = "";
+    [ObservableProperty] private string _faultTypeDescription = "";
+    [ObservableProperty] private string _faultTypeSymptoms = "";
+    [ObservableProperty] private string _faultTypeRepairMethods = "";
+
+    public void AddFaultType()
+    {
+        try
+        {
+            _faultTypeService.AddFaultType(new FaultTypeModel(
+                FaultTypeId,
+                FaultTypeModelId,
+                FaultTypeDescription,
+                FaultTypeSymptoms,
+                FaultTypeRepairMethods
+            ));
+            ClearAll();
+            UpdateAll();
+        }
+        catch (Exception e)
+        {
+            FaultTypeError = e.Message;
+        }
+    }
+
+    public void RemoveFaultType()
+    {
+        try
+        {
+            if (SelectedFaultTypeModel == null) return;
+            _faultTypeService.DeleteFaultType(SelectedFaultTypeModel);
+            ClearAll();
+            UpdateAll();
+        }
+        catch (Exception e)
+        {
+            FaultTypeError = e.Message;
+        }
+    }
+    
+    
     
     
 
-    
-    
-    
-    
 
 }

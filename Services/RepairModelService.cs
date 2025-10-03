@@ -41,20 +41,20 @@ public class RepairModelService
     public void AddRepairModel(RepairModel repairModel)
     {
         var command = _connection.CreateCommand();
-        command.CommandText = @"INSERT INTO RepairModels VALUES(@id, @name, @type, @producer, @properties, @features)";
-        command.Parameters.AddWithValue("@id", repairModel.Id);
-        command.Parameters.AddWithValue("@name", repairModel.Name);
-        command.Parameters.AddWithValue("@type", repairModel.Type);
-        command.Parameters.AddWithValue("@producer", repairModel.Producer);
-        command.Parameters.AddWithValue("@properties", repairModel.Properties);
-        command.Parameters.AddWithValue("@features", repairModel.Features);
+        command.CommandText = @"INSERT INTO RepairModels VALUES($id, $name, $type, $producer, $properties, $features)";
+        command.Parameters.AddWithValue("$id", repairModel.Id);
+        command.Parameters.AddWithValue("$name", repairModel.Name);
+        command.Parameters.AddWithValue("$type", repairModel.Type);
+        command.Parameters.AddWithValue("$producer", repairModel.Producer);
+        command.Parameters.AddWithValue("$properties", repairModel.Properties);
+        command.Parameters.AddWithValue("$features", repairModel.Features);
         command.ExecuteNonQuery();
     }
 
     public void DeleteRepairModel(RepairModel repairModel)
     {
         var command = _connection.CreateCommand();
-        command.CommandText = @"DELETE FROM RepairModels WHERE id = @id";
+        command.CommandText = @"DELETE FROM RepairModels WHERE id = $id";
         command.Parameters.AddWithValue("$id", repairModel.Id);
         command.ExecuteNonQuery();
     }

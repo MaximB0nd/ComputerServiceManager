@@ -21,13 +21,14 @@
                 <TextBlock Text="Select ">Table</TextBlock>
                 <RadioButton GroupName="Table" Content="Repair models" Click="OnRadioButtonClick" Tag="1" IsChecked="True"/>
                 <RadioButton GroupName="Table" Content="Spare parts" Click="OnRadioButtonClick" Tag="2"/>
-                <RadioButton GroupName="Table" Content="Виды неиправностей" Click="OnRadioButtonClick" Tag="3"/>
+                <RadioButton GroupName="Table" Content="Fault types" Click="OnRadioButtonClick" Tag="3"/>
                 <RadioButton GroupName="Table" Content="Запчасти для неисправностей" Click="OnRadioButtonClick" Tag="4"/>
             </StackPanel>
             
             
             <DataGrid IsVisible="{Binding IsSelectedFirstPage}" 
                       ItemsSource="{Binding RepairModels}" 
+                      SelectedItem="{Binding SelectedRepairModel}"
                       AutoGenerateColumns="True" 
                       IsReadOnly="True" 
                       GridLinesVisibility="All"
@@ -48,13 +49,21 @@
             </DataGrid>
             
             
-            <DataGrid IsVisible="{Binding IsSelectedThirdPage}" AutoGenerateColumns="True">
-                
-            </DataGrid>
+            <DataGrid IsVisible="{Binding IsSelectedThirdPage}" 
+                      SelectedItem="{Binding SelectedFaultTypeModel}"
+                      ItemsSource="{Binding FaultTypeModels}" 
+                      AutoGenerateColumns="True" 
+                      IsReadOnly="True" 
+                      GridLinesVisibility="All"
+                      HeadersVisibility="All" 
+                      BorderBrush="Gray" 
+                      BorderThickness="1" >
+            </DataGrid> 
         </StackPanel>
         
-        <TextBlock Text="{Binding SparePartError}" Foreground="Red"/>
-        <TextBlock Text="{Binding RepairModelError}" Foreground="Red"/>
+        <TextBlock IsVisible="{Binding IsSelectedFirstPage}" Text="{Binding RepairModelError}" Foreground="Red"/>
+        <TextBlock IsVisible="{Binding IsSelectedSecondPage}" Text="{Binding SparePartError}" Foreground="Red"/>
+        <TextBlock IsVisible="{Binding IsSelectedThirdPage}" Text="{Binding FaultTypeError}" Foreground="Red"/>
         
         <Grid IsVisible="{Binding IsSelectedFirstPage}"
               ColumnDefinitions="*, *, *, *" RowDefinitions="*, *" ColumnSpacing="20" RowSpacing="20" Margin="20">
@@ -127,8 +136,39 @@
             </StackPanel>
         </Grid>
         
-        <Grid IsVisible="{Binding IsSelectedThirdPage}"> 
-            
+        <Grid IsVisible="{Binding IsSelectedThirdPage}" ColumnDefinitions="*, *, *, *" RowDefinitions="*, *" ColumnSpacing="20" RowSpacing="20" Margin="20"> 
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+                <TextBlock Text="Id" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding FaultTypeId}" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="ModelId" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding FaultTypeModelId}" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical" Grid.RowSpan="2">
+                <TextBlock Text="Description" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding FaultTypeDescription}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+                <TextBlock Text="Symptoms" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding FaultTypeSymptoms}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="RepairMethods" Margin="0 0 0 4"/>
+                <TextBox Text="{Binding FaultTypeRepairMethods}" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Vertical">
+                <TextBlock Text=""/>
+                <Button Click="OnAddFaultTypeClick">
+                    <TextBlock Text="Add FaultType" />
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical">
+                <TextBlock Text=""/>
+                <Button Click="OnDeleteFaultTypeClick">
+                    <TextBlock Text="Delete FaultPart" />
+                </Button>
+            </StackPanel>
         </Grid>
         
         <Grid IsVisible="{Binding IsSelectedFourthPage}"> 

@@ -46,4 +46,16 @@ public partial class MainWindow : Window
         if (ViewModel == null) return;
         ViewModel.RemoveRepairModel();
     }
+
+    private void OnAddFaultTypeClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null) return;
+        ViewModel.AddFaultType();
+    }
+
+    private void OnDeleteFaultTypeClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null) return;
+        ViewModel.RemoveFaultType();
+    }
 }
