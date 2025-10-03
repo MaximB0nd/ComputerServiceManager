@@ -19,7 +19,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private bool _isSelectedFirstPage = true;
     [ObservableProperty] private bool _isSelectedSecondPage = false;
     [ObservableProperty] private bool _isSelectedThirdPage = false;
-    [ObservableProperty] private bool _isSelectedFourthPage = false;
+    //[ObservableProperty] private bool _isSelectedFourthPage = false;
     
     // --- for all 
     public void ChangePage(int page)
@@ -27,7 +27,7 @@ public partial class MainWindowViewModel : ViewModelBase
         IsSelectedFirstPage = page == 1;
         IsSelectedSecondPage = page == 2;
         IsSelectedThirdPage = page == 3;
-        IsSelectedFourthPage = page == 4;
+        //IsSelectedFourthPage = page == 4;
         ClearAll();
         UpdateAll();
     }

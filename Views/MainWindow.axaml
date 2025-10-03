@@ -22,7 +22,7 @@
                 <RadioButton GroupName="Table" Content="Repair models" Click="OnRadioButtonClick" Tag="1" IsChecked="True"/>
                 <RadioButton GroupName="Table" Content="Spare parts" Click="OnRadioButtonClick" Tag="2"/>
                 <RadioButton GroupName="Table" Content="Fault types" Click="OnRadioButtonClick" Tag="3"/>
-                <RadioButton GroupName="Table" Content="Запчасти для неисправностей" Click="OnRadioButtonClick" Tag="4"/>
+                <!--<RadioButton GroupName="Table" Content="Запчасти для неисправностей" Click="OnRadioButtonClick" Tag="4"/> -->
             </StackPanel>
             
             
@@ -169,10 +169,6 @@
                     <TextBlock Text="Delete FaultPart" />
                 </Button>
             </StackPanel>
-        </Grid>
-        
-        <Grid IsVisible="{Binding IsSelectedFourthPage}"> 
-            
         </Grid>
         
         
